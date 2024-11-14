@@ -1,0 +1,236 @@
+* {
+  box-sizing: border-box;
+}
+
+.title-with-logo {
+  font-size: 30px;
+  text-align: center;
+  font-weight: bold;
+  width: 100%;
+  color: white;
+  background-color: #275b91; /* 背景色を追加 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 0px;
+}
+/* 画像のサイズを調整 */
+.title-logo {
+  height: auto; /* 画像の高さは自動調整 */
+  margin-left: 20px; /* 文字との間隔を設定 */
+}
+
+/* サブタイトルの書式設定 */
+.subtitle {
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  width: 100%;
+  background-color: #000000;
+  color: white;
+  padding: 5px;
+  margin-top: 0%;
+}
+
+/* レコード表示欄タイトルの書式設定 */
+.second_title {
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+
+.output-area {
+  display: flex;
+  flex-direction: column; /* 縦に積み重ねて表示 */
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  padding: 5px;
+  width: 100%;
+  max-width: 800px; /* デスクトップでの最大幅 */
+  border: 1px solid goldenrod;
+  box-sizing: border-box; /* 枠内に padding を含める */
+}
+
+.delete-description {
+    font-weight: bold;
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 5px;
+  }
+
+.delete-area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  padding: 5px;
+  max-width: 300px; /* 全体の横幅を制限 */
+  border-radius: 8px;
+}
+
+.delete-area input[type="date"] {
+  width: 100%; /* 親要素の最大幅に収まるように設定 */
+  max-width: 150px; /* 日付入力フィールドの幅を制限 */
+  padding: 5px;
+  margin-right: 10px; /* ボタンとの間隔を調整 */
+}
+
+.delete-area button {
+  padding: 5px 10px;
+  border: 1px solid #ddd;
+}
+
+input {
+  width: 100%;
+  display: block;
+  padding: 10px 10px;
+  margin-bottom: 5px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+}
+
+textarea {
+  width: 100%;
+  height: 100px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  resize: none;
+  font-size: 20px;
+}
+
+.button-area {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
+.button-area button {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  width: 40%;
+  height: 45px;
+  text-align: center;
+  display: block;
+  font-size: 15px;
+}
+
+footer {
+  margin-top: 30px;
+  padding-top: 10px;
+  text-align: center;
+  font-size: 20px;
+  background-color: #275b91; /* 背景色を追加 */
+
+}
+
+#list {
+  width: 90%;
+  margin: 50px auto;
+}
+
+#list li {
+  font-size: 20px;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 5px;
+  margin-bottom: 20px;
+}
+
+#list li p {
+  margin: 5px 0;
+}
+
+
+/* コンテナ全体のスタイル */
+.table-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    padding: 5px;
+    width: 100%;
+    max-width: 600px; /* デスクトップでの最大幅 */
+  }
+  
+  /* 残りの試合数を表示するカウンターのスタイル */
+  .remaing-area {
+    width: 200px; /* 幅を調整 */
+    height: auto; /* 高さは自動で調整 */
+    display: flex;
+    flex-direction: column; /* 縦方向に並べる */
+    justify-content: center;
+    align-items: center;
+    padding: 10px; /* 内側の余白 */
+    font-size: 1em;
+    font-weight: bold;
+    color: white;
+    border: 2px solid goldenrod;
+    border-radius: 8px;
+    background-color: #275b91;;
+    text-align: center;
+    margin-right: 30px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* 影を追加 */
+  }
+
+/* input_table の基本スタイル */
+.input_table {
+  /* display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  padding: 5px;
+  width: 100%; */
+  max-width: 600px; /* デスクトップでの最大幅 */
+}
+
+/* テーブルの基本スタイル */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #ccc;
+}
+
+th,
+td {
+  padding: 10px;
+  text-align: left;
+}
+
+/* 勝敗のラジオボタンを横に並べるスタイル */
+.radio-group {
+  display: flex;
+  gap: 15px; /* 各ラジオボタンの間隔 */
+}
+
+.radio-group label {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap; /* テキストを折り返さないようにする */
+  margin-right: 10px; /* ラジオボタン同士の間隔を空ける */
+}
+/* ボタンのスタイリング */
+button#save {
+  padding: 5px 20px;
+  font-size: 15px;
+  background-color: #275b91;
+  color: white;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+}
+
+button#save:hover {
+  background-color: goldenrod;
+}
+
+.footer-logo {
+width: 200px;
+justify-content: center;
+}
+
+
+  

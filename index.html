@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Fighters2025</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- <script src="js/jquery-2.1.3.min.js"></script> -->
+    <!-- <link rel="stylesheet" href="css/reset.css" /> -->
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+
+  <body>
+
+
+    <h1 class="title-with-logo">
+      試合観戦の記録
+      <img src="image/logo.svg" alt="logo" class="title-logo" />
+    </h1>
+    <h1 class="subtitle">2025年度の目標は、年間試合観戦数15回!!!</h1>
+
+    <div class="table-container">
+      <div class="remaing-area">
+        <p>今年の目標まで<br />あと残り</p>
+        <div class="remaining-counter" id="remaining-counter">
+          <div style="color: goldenrod; font-weight: bold; font-size: 30px">
+            15
+          </div>
+        </div>
+        <p>試合</p>
+      </div>
+      <div class="input_table">
+        <table>
+          <tr style="background-color: #275b91; color: white">
+            <th colspan="2" style="text-align: center">
+              北海道日本ハムファイターズの試合観戦記録を登録してね！
+            </th>
+          </tr>
+          <tr>
+            <th>観戦日</th>
+            <td><input id="date" type="date" placeholder="観戦日を入力" /></td>
+          </tr>
+          <tr>
+            <th>勝敗</th>
+            <td class="radio-group">
+              <label
+                ><input type="radio" name="outcome" value="win" /> 勝</label
+              >
+              <label
+                ><input type="radio" name="outcome" value="loose" /> 負</label
+              >
+              <label
+                ><input type="radio" name="outcome" value="draw" />
+                引き分け</label
+              >
+            </td>
+          </tr>
+          <tr>
+            <th>対戦相手</th>
+            <td>
+              <input id="opponent" type="text" placeholder="対戦相手を入力" />
+            </td>
+          </tr>
+          <tr>
+            <th>席種</th>
+            <td><input id="seat" type="text" placeholder="席種を入力" /></td>
+          </tr>
+          <tr>
+            <td colspan="2" style="text-align: center">
+              <button id="save">セーブ</button>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <h2 class="second_title">2025年の記録</h2>
+
+    <main>
+      <div class="output-area">
+        <ul id="list">
+          <!-- ここに追加データが挿入される -->
+        </ul>
+      </div>
+
+      <div class="delete-description">
+        ※
+        観戦の記録を削除する時は、削除したいデータの日付を選択し、削除ボタンを押してください。
+      </div>
+
+      <div class="delete-area">
+        <input
+          type="date"
+          id="delete-date"
+          placeholder="日付を選択してください"
+        />
+        <button id="delete">削除</button>
+      </div>
+
+      <ul id="list"></ul>
+
+      <div class="button-area">
+        <button id="clear">登録した記録を全て削除する</button>
+      </div>
+    </main>
+
+    <!-- <ul id="list"> -->
+    <!-- ここに追加データが挿入される -->
+
+    <footer>
+      <img src="image/logo.svg" alt="logo" class="footer-logo" />
+    </footer>
+
+    <!-- 以下にjsを書いていきます -->
+    <script>
+  
+
+      $(document).ready(function () {
+        // ページ読み込み時に localStorage からすべてのキーを取得してループ処理
+        for (let i = 0; i < localStorage.length; i++) {
+          const key = localStorage.key(i);
+          const storedValue = localStorage.getItem(key);
+
+          // JSON 形式で保存されているデータを配列に戻す
+          const [outcome, opponent, seat] = JSON.parse(storedValue);
+
+          // 表示内容を生成
+          const html = `
+      <li style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center; font-size: 1.0em;">
+        <p><strong>観戦日:</strong> ${key}</p>
+        <p><strong>勝敗:</strong> ${outcome}</p>
+        <p><strong>対戦相手:</strong> ${opponent}</p>
+        <p><strong>席種:</strong> ${seat}</p>
+      </li>
+    `;
+          // リストに追加
+          $("#list").append(html);
+        }
+      });
+
+      //1.Save クリックイベント
+      $("#save").on("click", function () {
+        const key = $("#date").val(); // 観戦日をキーとして使用
+        let outcome = $('input[name="outcome"]:checked').val(); //勝敗
+        const opponent = $("#opponent").val(); //対戦相手
+        const seat = $("#seat").val(); //席種
+
+        // outcomeの値を日本語に変換
+        if (outcome === "win") {
+          outcome = "勝利";
+        } else if (outcome === "loose") {
+          outcome = "負";
+        } else if (outcome === "draw") {
+          outcome = "引き分け";
+        }
+
+        // 観戦日が入力されていない場合は保存しない
+        if (!key) {
+          alert("観戦日を入力してください。");
+          return;
+        }
+        // 配列にまとめて文字列化して保存
+        const value = JSON.stringify([outcome, opponent, seat]);
+        localStorage.setItem(key, value);
+
+        // HTMLに追加する表示内容
+        const html = `
+          <li style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center; font-size: 1.1em; line-height: 1.0;">
+            <p><strong>観戦日:</strong> ${key}</p>
+            <p><strong>勝敗:</strong> ${outcome}</p>
+            <p><strong>対戦相手:</strong> ${opponent}</p>
+            <p><strong>席種:</strong> ${seat}</p>
+          </li>
+        `;
+        $("#list").append(html);
+      });
+
+      //2.clear クリックイベント
+      $("#clear").on("click", function () {
+        localStorage.clear();
+        $("#list").empty();
+      });
+
+      // 3.deleat クリックイベント
+      $("#delete").on("click", function () {
+        const deleteKey = $("#delete-date").val(); // 削除する日付を取得
+
+        // 入力が空の場合は削除を行わない
+        if (!deleteKey) {
+          alert("削除する日付を選択してください。");
+          return;
+        }
+
+        // localStorage から指定されたキーを削除
+        localStorage.removeItem(deleteKey);
+        alert("データが削除されました。");
+        // ページをリロードして最新の状態に更新
+        location.reload();
+      });
+
+      // カウンターを更新する関数
+      function updateRemainingCounter() {
+        const maxCount = 15;
+        const currentCount = localStorage.length;
+        const remainingCount = maxCount - currentCount;
+        document.getElementById("remaining-counter").textContent =
+          remainingCount;
+      }
+
+      // ページロード時にカウンターを初期化
+      document.addEventListener("DOMContentLoaded", updateRemainingCounter);
+
+      // セーブボタンをクリックしたときにカウンターを更新
+      document.getElementById("save").addEventListener("click", function () {
+        const key = document.getElementById("date").value;
+        let outcome = document.querySelector(
+          'input[name="outcome"]:checked'
+        ).value;
+        const opponent = document.getElementById("opponent").value;
+        const seat = document.getElementById("seat").value;
+
+        if (!key) {
+          alert("観戦日を入力してください。");
+          return;
+        }
+
+        const value = JSON.stringify([outcome, opponent, seat]);
+        localStorage.setItem(key, value);
+
+        // カウンターを更新
+        updateRemainingCounter();
+      });
+
+      // 削除ボタンをクリックしたときにカウンターを更新
+      document.getElementById("delete").addEventListener("click", function () {
+        const deleteKey = document.getElementById("delete-date").value;
+        if (deleteKey && localStorage.getItem(deleteKey)) {
+          localStorage.removeItem(deleteKey);
+          updateRemainingCounter(); // カウンターを更新
+        }
+      });
+
+      // 全削除ボタンをクリックしたときにカウンターを更新
+      document.getElementById("clear").addEventListener("click", function () {
+        localStorage.clear();
+        updateRemainingCounter(); // カウンターを更新
+      });
+
+      //3.ページ読み込み：保存データ取得表示
+      //   for (let i = 0; i < localStorage.length; i++) {
+      //     const key = localStorage.key(i);
+      //     const value = localStorage.getItem(key);
+      //     const html = `
+      //   <li>
+      //     <p>${key}</p>
+      //     <p>${value}</p>
+      //   </li>
+      // `;
+      //     $("#list").append(html);
+      //   }
+    </script>
+  </body>
+</html>
